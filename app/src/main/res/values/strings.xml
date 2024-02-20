@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Entrega_Uno</string>
+    <string name="user">Usuario</string>
+    <string name="btn1">Iniciar sesión</string>
+    <string name="btn2">Inscríbete</string>
+    <string name="Send">Enviar</string>
+</resources>
