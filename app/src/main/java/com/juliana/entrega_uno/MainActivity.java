@@ -2,8 +2,13 @@ package com.juliana.entrega_uno;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.SearchManager;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.AlarmClock;
+import android.provider.CalendarContract;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -12,7 +17,7 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
 
     TextView nombreUsuario;
-    Button btn1,btn2,Send;
+    Button btn1,btn2,Send,btnAlarma,btnEvento,btnLlamada;
 
     String Tag = "Prueba";
 
@@ -25,14 +30,37 @@ public class MainActivity extends AppCompatActivity {
         btn1 = findViewById(R.id.btn1);
         btn2 = findViewById(R.id.btn2);
         Send = findViewById(R.id.btnSend);
+        btnAlarma= findViewById(R.id.btnAlarma);
+        btnEvento= findViewById(R.id.btnEvento);
+        btnLlamada=findViewById(R.id.btnLlamada);
+
+        btnLlamada.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialPhoneNumber("3184719273");
+            }
+        });
+
+
+        btnEvento.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addEvent("Trabajo pendiente","Universidad", 1676982900, 1708518900);
+            }
+        });
+
+        btnAlarma.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createAlarm("Despertar",8,30);
+            }
+        });
 
 
         btn1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                nombreUsuario.setText("Presionaste Iniciar sesión");
-
-            }
+        @Override
+        public void onClick(View view) {
+            nombreUsuario.setText("Presionaste Iniciar sesión");}
         });
 
         btn2.setOnClickListener(new View.OnClickListener() {
@@ -72,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         Log.i(Tag,"Estoy en OnResume");
-        /*nombreUsuario.setText("Estas en Resume");*/
+        nombreUsuario.setText("Estas en OnResume");
 
     }
 
@@ -102,5 +130,33 @@ public class MainActivity extends AppCompatActivity {
         Log.i(Tag,"Estoy en OnDestroy");
     }
 
+    public void createAlarm(String message, int hour, int minutes) {
+        Intent intent = new Intent(AlarmClock.ACTION_SET_ALARM)
+                .putExtra(AlarmClock.EXTRA_MESSAGE, message)
+                .putExtra(AlarmClock.EXTRA_HOUR, hour)
+                .putExtra(AlarmClock.EXTRA_MINUTES, minutes);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
+    }
+
+    public void addEvent(String title, String location, long begin, long end) {
+        Intent intent = new Intent(Intent.ACTION_INSERT)
+                .setData(CalendarContract.Events.CONTENT_URI)
+                .putExtra(CalendarContract.Events.TITLE, title)
+                .putExtra(CalendarContract.Events.EVENT_LOCATION, location)
+                .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, begin)
+                .putExtra(CalendarContract.EXTRA_EVENT_END_TIME, end);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
+    }
+    public void dialPhoneNumber(String phoneNumber) {
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        intent.setData(Uri.parse("tel:" + phoneNumber));
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
+    }
 
 }

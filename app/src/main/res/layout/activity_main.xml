@@ -65,6 +65,47 @@
         </Button>
 
 
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnAlarma"
+            android:backgroundTint="#FC402188"
+            android:text="@string/btnAlarma"
+            >
+
+        </Button>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnEvento"
+            android:backgroundTint="#FC402188"
+            android:text="@string/btnEvento">
+        </Button>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnLlamada"
+            android:backgroundTint="#FC402188"
+            android:text="@string/btnLlamada">
+        </Button>
     </LinearLayout>
 
 </LinearLayout>
